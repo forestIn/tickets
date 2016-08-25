@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+{% block head_title %} {% endblock %}
+
+     
+{% block jumbotron %}
+      <div class="container" ng-controller="DispatcherCtrl as vm">
+        <h1>Диспетчер</h1>
+      </div>      
+{% endblock jumbotron%}
+
+
+{% block javascript %}
+<script src="{% static 'js/dispatcher/dispatcher.js' %}"></script>
+<script src="{% static 'js/dispatcher/service.js' %}"></script>
+{% endblock javascript %}
