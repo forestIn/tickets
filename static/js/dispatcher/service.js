@@ -1,31 +1,38 @@
 (function() {
-  angular.module('app').factory('GetDispatcher', [
+  angular.module('app').factory('GetDispatcherData', [
     '$http', function($http) {
-      var api;
-      api = "/api/v1/cars/";
+      var urlCars, urlMarks, urlModels;
+      urlCars = "/api/v1/cars/";
+      urlModels = "/api/v1/automodels/";
+      urlMarks = "/api/v1/automarks/";
       return {
         getCars: function() {
-          return $http.get(api + "?format=json");
+          return $http.get(urlCars + "?format=json");
         },
         saveCar: function(idcars, car) {
           if (idcars != null) {
-            return $http.put('api/v1/cars/' + idcars + '/', car);
+            return $http.put(urlCars + idcars + '/', car);
           } else {
-            return $http.post(api, car);
+            return $http.post(urlCars, car);
           }
         },
         delCar: function(idCar) {
           if (idCar != null) {
-            return $http["delete"]('api/v1/cars/' + idCar + '/');
+            return $http["delete"](urlCars + idCar + '/');
           }
+        },
+        getModels: function() {
+          return $http.get(urlModels + "?format=json");
+        },
+        getMarks: function() {
+          return $http.get(urlMarks + "?format=json");
         }
       };
     }
   ]).config([
     '$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
       $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-      $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-      return $locationProvider.html5Mode(true).hashPrefix('!');
+      return $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }
   ]);
 

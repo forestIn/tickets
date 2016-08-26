@@ -1,12 +1,6 @@
-myApp = angular.module('app', []);
-myApp.controller "DispatcherCtrl", ['GetDispatcher',(GetData) ->
+myApp = angular.module 'app', ['ngMaterial']
+myApp.controller "DispatcherCtrl", ['GetDispatcherData', (GetData) ->
         vm = @        
-        vm.status = [
-                        { id:'used', name:'Используется'},
-                        {id:'to',name:'ТО'},
-                        {id:'rmnt',name:'Ремонт'},
-                        {id:'dlt',name:'Удалено'}
-                    ]
         vm.newCar = () ->
             vm.car = {}                                        
         vm.delCar = () ->
@@ -15,16 +9,19 @@ myApp.controller "DispatcherCtrl", ['GetDispatcher',(GetData) ->
                 vm.car = {}
         vm.currentCar = (id) ->            
             vm.car = angular.copy(vm.cars[id])            
-        vm.loadAuto = () ->
+        vm.loadData = () ->
             GetData.getCars().then (response) ->
-                vm.cars = response.data.results if response.data?           
+                vm.cars = response.data if response.data?           
+            GetData.getModels().then (response) ->
+                vm.models = response.data if response.data?           
+            GetData.getMarks().then (response) ->
+                vm.marks = response.data if response.data?           
         vm.saveCar = () ->
             GetData.saveCar(vm.car.id, vm.car).then (response)->
                 vm.loadAuto()
                 vm.car = response.data if response.data?
                 return
-        vm.loadAuto()
-        # GetData.getRess().then (response) ->
-        #     vm.ress = response.data.results if response.data?
+        vm.loadData()
+
         return
     ]   

@@ -1,27 +1,12 @@
 (function() {
   var myApp;
 
-  myApp = angular.module('app', []);
+  myApp = angular.module('app', ['ngMaterial']);
 
   myApp.controller("DispatcherCtrl", [
-    'GetDispatcher', function(GetData) {
+    'GetDispatcherData', function(GetData) {
       var vm;
       vm = this;
-      vm.status = [
-        {
-          id: 'used',
-          name: 'Используется'
-        }, {
-          id: 'to',
-          name: 'ТО'
-        }, {
-          id: 'rmnt',
-          name: 'Ремонт'
-        }, {
-          id: 'dlt',
-          name: 'Удалено'
-        }
-      ];
       vm.newCar = function() {
         return vm.car = {};
       };
@@ -34,10 +19,20 @@
       vm.currentCar = function(id) {
         return vm.car = angular.copy(vm.cars[id]);
       };
-      vm.loadAuto = function() {
-        return GetData.getCars().then(function(response) {
+      vm.loadData = function() {
+        GetData.getCars().then(function(response) {
           if (response.data != null) {
-            return vm.cars = response.data.results;
+            return vm.cars = response.data;
+          }
+        });
+        GetData.getModels().then(function(response) {
+          if (response.data != null) {
+            return vm.models = response.data;
+          }
+        });
+        return GetData.getMarks().then(function(response) {
+          if (response.data != null) {
+            return vm.marks = response.data;
           }
         });
       };
@@ -49,7 +44,7 @@
           }
         });
       };
-      vm.loadAuto();
+      vm.loadData();
     }
   ]);
 
