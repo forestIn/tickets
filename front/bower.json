@@ -1,0 +1,24 @@
+{
+  "name": "front",
+  "homepage": "https://github.com/forestin/tickets",
+  "authors": [
+    "Oleg Anikyev <Anikjev@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-messages": "^1.5.8",
+    "angular": "angularjs#^1.5.8",
+    "angular-material": "^1.1.0"
+  }
+}
