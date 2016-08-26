@@ -7,8 +7,9 @@
     'GetDispatcherData', function(GetData) {
       var vm;
       vm = this;
-      vm.newCar = function() {
-        return vm.car = {};
+      vm.car = {
+        marks: [],
+        models: []
       };
       vm.delCar = function() {
         return GetData.delCar(vm.car.id).then(function() {
@@ -20,20 +21,33 @@
         return vm.car = angular.copy(vm.cars[id]);
       };
       vm.loadData = function() {
-        GetData.getCars().then(function(response) {
+        return GetData.getCars().then(function(response) {
           if (response.data != null) {
             return vm.cars = response.data;
           }
         });
-        GetData.getModels().then(function(response) {
+      };
+      vm.loadModels = function() {
+        var id, models;
+        models = [];
+        id = 1;
+        return GetData.getModels().then(function(response) {
           if (response.data != null) {
-            return vm.models = response.data;
+            angular.forEach(response.data, function(el) {
+              if (el.marka.id === vm.car.marka) {
+                models.push(el);
+              }
+            });
           }
+          return vm.models = models;
         });
+      };
+      vm.loadMarks = function() {
         return GetData.getMarks().then(function(response) {
           if (response.data != null) {
-            return vm.marks = response.data;
+            vm.marks = response.data;
           }
+          return vm.car.models = [];
         });
       };
       vm.saveCar = function() {

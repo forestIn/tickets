@@ -30,7 +30,7 @@
       };
     }
   ]).config([
-    '$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
+    '$httpProvider', '$locationProvider', '$mdThemingProvider', function($httpProvider, $locationProvider, $mdThemingProvider) {
       $httpProvider.defaults.xsrfCookieName = 'csrftoken';
       return $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }

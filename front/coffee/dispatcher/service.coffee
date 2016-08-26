@@ -17,10 +17,10 @@ angular.module 'app'
             $http.get urlMarks+"?format=json"              
 
     ] 
-    .config ['$httpProvider','$locationProvider', ($httpProvider,$locationProvider) ->
+    .config ['$httpProvider','$locationProvider','$mdThemingProvider', ($httpProvider,$locationProvider,$mdThemingProvider) ->
         #сконфигурим CSRF
-        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken'
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+        # $mdThemingProvider.theme('default').dark()
         # $locationProvider.html5Mode(true).hashPrefix('!');
     ]
-
